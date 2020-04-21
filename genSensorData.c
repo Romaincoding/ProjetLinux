@@ -1,7 +1,16 @@
-#include <stdio.h>
+#include<stdio.h>
+#define BUFFERSIZE 1000
 
 int main(int argc, char *argv[]){
-    printf("Hello welcome to the gensensordata software by antoine, boris and Romain the small dicks\n");
+	printf("welcome to mon fion\n");
 
-    return 0;
+	char buffer[BUFFERSIZE];
+
+	while (	fgets(buffer,BUFFERSIZE,stdin))
+	{
+		printf("%s", buffer);
+	}
+
+	return 0;
+
 }

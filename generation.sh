@@ -2,4 +2,4 @@
 
 timer=$1
 
-./genTick $timer
+./genTick $timer | ./genSensorData 
