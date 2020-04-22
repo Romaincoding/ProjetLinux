@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
 	//printf("buffer=%s\n", buffer);
 	if( strcmp(buffer,"OK\n")==0){
 
-		printf("sensor;100;0;50\n");
+		printf("sensor; LastUpdate:21/04/2020; SensorId:52315x; SensorName: DoorSensor; Value:50; MaxValue:75;\n");
 	}
 	else if ( strcmp(buffer,"ERROR\n")==0) {
 

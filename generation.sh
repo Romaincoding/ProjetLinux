@@ -13,13 +13,17 @@ fileName2=$4
     echo $RAW_LINE
 
      result=$(echo $RAW_LINE | cut -d ";" -f1 );
+     filter=$(echo $RAW_LINE | cut -d ";" -f3,4,5,6);
     if [[ $result == "sensor" ]]; then
-
-         echo $RAW_LINE >> $fileName1.log;
+        
+        
+       
+        echo $filter >> $fileName1.log;
             
      else 
 
         echo $RAW_LINE >> $fileName2.log;
+
 
 
      
