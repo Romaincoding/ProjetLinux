@@ -6,6 +6,8 @@ Dir=$2
 fileName1=$3
 fileName2=$4
 
+echo $UID
+mkdir /home/$USER/$Dir
 #./genTick $timer | ./genSensorData 1> $fileName1.txt 
 #./genTick $timer | ./genSensorData  
 ./genTick $timer | ./genSensorData 2>&1 | {
@@ -18,13 +20,11 @@ fileName2=$4
         
         
        
-        echo $filter >> $fileName1.log;
+        echo $filter >> /home/$USER/$Dir/$fileName1.log;
             
      else 
 
-        echo $RAW_LINE >> $fileName2.log;
-
-
+        echo $RAW_LINE >> /home/$USER/$Dir/$fileName2.log;
 
      
      fi
