@@ -10,12 +10,13 @@ int main(int argc, char *argv[]){
 	//printf("buffer=%s\n", buffer);
 	if( strcmp(buffer,"OK\n")==0){
 
-		printf("toutes les portes sont bien fermées");
+		printf("sensor;100;0;50\n");
 	}
 	else if ( strcmp(buffer,"ERROR\n")==0) {
 
-		printf("Attention la porte de l'entrée est ouverte!");
+		printf("error;bad data!\n");
 	}
+	fflush(stdout);
 	}
 
 	return 0;
