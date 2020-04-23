@@ -45,10 +45,18 @@ testSizeError=$(du /../home/$USER/$Dir/$fileName2.log | cut -f1);
                 pgrep generation.sh | xargs kill
                 date=$(date '+%Y-%m-%d')
 
-                # archivage des logs dans le même repertoire       
-                tar -czvf /home/$USER/$Dir/$date.tar.gz /home/$USER/$Dir/*.log
+                # comptage du nombres enregistrements dans fichiers 1 et 2
+                # et enregistrement dans un fichier numberInLog
+                touch /home/$USER/$Dir/numberInLog.txt
+                wc -l /home/$USER/$Dir/$fileName1.log >> /home/$USER/$Dir/numberInLog.txt  
+                wc -l /home/$USER/$Dir/$fileName2.log >> /home/$USER/$Dir/numberInLog.txt
+
+                # archivage des logs dans le même repertoire et du fichier numberInLog       
+                tar -czvf /home/$USER/$Dir/$date.tar.gz /home/$USER/$Dir/*.log /home/$USER/$Dir/*.txt
                 # suppression des fichiers d'origine avant reinit du process 
                 rm /home/$USER/$Dir/*.log
+                rm /home/$USER/$Dir/*.txt
+                #reinit du PID
                 generationPID=0
         fi
 
