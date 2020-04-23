@@ -45,6 +45,9 @@ testSizeError=$(du /../home/$USER/$Dir/$fileName2.log | cut -f1);
                 pgrep generation.sh | xargs kill
                 date=$(date '+%Y-%m-%d')
 
+                # story 10 tri par les id : cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n
+
+
                 # comptage du nombres enregistrements dans fichiers 1 et 2
                 # et enregistrement dans un fichier numberInLog
                 touch /home/$USER/$Dir/numberInLog.txt
