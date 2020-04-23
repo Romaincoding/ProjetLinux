@@ -8,6 +8,7 @@ fileName2=$4
 fileSize=$5
 
 generationPID=0
+version=0
 
 
 
@@ -29,21 +30,25 @@ testSizeError=$(du /../home/$USER/$Dir/$fileName2.log | cut -f1);
                 ./generation.sh $timer $Dir $fileName1 $fileName2 &
                 generationPID=$!
 
-#regarder si le sfichiers de logs pas trop gros => methode : du ou autre ou stat
+#regarder si le sfichiers de logs pas trop gros => methode
 
         fi
         if [[ $testSize -lt $fileSize && $testSizeError -lt $fileSize ]]; then 
                 echo "dans le if la taille est $testSize"
                 echo "la taille est plus petite que celle donnée en argument"
+                echo "le processus se poursuit"
 
         else
-                echo "la taille est trop grande"
+                echo "la taille du fichier est trop grande. Enclenchement procedure archive"
                 # si trop gros => kill du PID => copier fichiers etc => PID=0
                 #kill $generationPID
                 pgrep generation.sh | xargs kill
                 date=$(date '+%Y-%m-%d')
-                
-                tar -czvf $date.tar.gz /../home/$USER/$Dir 
+
+                # archivage des logs dans le même repertoire       
+                tar -czvf /home/$USER/$Dir/$date.tar.gz /home/$USER/$Dir/*.log
+                # suppression des fichiers d'origine avant reinit du process 
+                rm /home/$USER/$Dir/*.log
                 generationPID=0
         fi
 
