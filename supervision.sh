@@ -15,8 +15,8 @@ version=0
 # 1) declarer un generationPID=0
 while true;do
 # verifier qui est l'utilisateur courant et recuprerla taille des fichiers de logs
-testSize=$(du /../home/$USER/$Dir/$fileName1.log | cut -f1);
-testSizeError=$(du /../home/$USER/$Dir/$fileName2.log | cut -f1);
+testSize=$(du /home/$USER/$Dir/$fileName1.log | cut -f1);
+testSizeError=$(du /home/$USER/$Dir/$fileName2.log | cut -f1);
 
 #message si le dossier n'existe pas ou si le script n'est pas lancé
 #process = $(pgrep generation.sh)
@@ -45,7 +45,7 @@ testSizeError=$(du /../home/$USER/$Dir/$fileName2.log | cut -f1);
                 pgrep generation.sh | xargs kill
                 date=$(date '+%Y-%m-%d')
 
-                cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n > /home/$USER/$Dir/$fileName1.log
+                cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n > /home/$USER/$Dir/$fileName1.txt
                 # comptage du nombres enregistrements dans fichiers 1 et 2
                 # et enregistrement dans un fichier numberInLog
                 touch /home/$USER/$Dir/numberInLog.txt
