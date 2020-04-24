@@ -31,21 +31,23 @@ testSizeError=$(du /home/$USER/$Dir/$fileName2.log | cut -f1);
                 generationPID=$!
 
 #regarder si le sfichiers de logs pas trop gros => methode
-
+                sleep 1        
         fi
-        if [[ $testSize -lt $fileSize && $testSizeError -lt $fileSize ]]; then 
-                echo "dans le if la taille est $testSize"
-                echo "la taille est plus petite que celle donnée en argument"
-                echo "le processus se poursuit"
+#regarder le code d'erreur du pgrep
+        pgrep generation.sh
+        echo $?
+        #test si ca renvoie 1 ou 0 => ensuite l'inclure dans la condition
 
-        else
+        if [[ $testSize -gt $fileSize || $testSizeError -gt $fileSize ]]; then 
+
                 echo "la taille du fichier est trop grande. Enclenchement procedure archive"
                 # si trop gros => kill du PID => copier fichiers etc => PID=0
                 #kill $generationPID
                 pgrep generation.sh | xargs kill
                 date=$(date '+%Y-%m-%d')
 
-                cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n > /home/$USER/$Dir/$fileName1.txt
+                cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n -o /home/$USER/$Dir/$fileName1.log
+                exit 0
                 # comptage du nombres enregistrements dans fichiers 1 et 2
                 # et enregistrement dans un fichier numberInLog
                 touch /home/$USER/$Dir/numberInLog.txt
@@ -53,7 +55,9 @@ testSizeError=$(du /home/$USER/$Dir/$fileName2.log | cut -f1);
                 wc -l /home/$USER/$Dir/$fileName2.log >> /home/$USER/$Dir/numberInLog.txt
 
                 # archivage des logs dans le même repertoire et du fichier numberInLog       
-                tar -czvf /home/$USER/$Dir/$date.tar.gz /home/$USER/$Dir/*.log /home/$USER/$Dir/*.txt
+                cd /home/$USER/$Dir
+                tar -czvf $date.tar.gz *.log *.txt
+                cd -
                 # suppression des fichiers d'origine avant reinit du process 
                 rm /home/$USER/$Dir/*.log
                 rm /home/$USER/$Dir/*.txt
