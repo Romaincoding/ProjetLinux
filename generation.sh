@@ -17,7 +17,7 @@ trap on_hangup SIGINT
 while true ; do 
 sleep 1
     echo "ça fonctionne"
-done 
+
  
 
 echo $UID
@@ -44,7 +44,6 @@ mkdir /home/$USER/$Dir
      fi
      
 
-
     #
     
     
@@ -54,6 +53,8 @@ mkdir /home/$USER/$Dir
     
     done
     
+    
 }
+done
 
 

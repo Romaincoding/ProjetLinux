@@ -53,16 +53,7 @@ function isLaunched () {
         if [[ isLaunched -eq 0 ]]; then
 
                 echo "generation is active"
-         
-        else
-                echo "generation is not active"
-        fi        
-       
-        #test si ca renvoie 1 ou 0 => ensuite l'inclure dans la condition
-
-
-#condition where we verify if logfile's size are greater than the size set in argument $fileSize
-        if [[ $testSize -gt $fileSize || $testSizeError -gt $fileSize ]]; then 
+                if [[ $testSize -gt $fileSize || $testSizeError -gt $fileSize ]]; then 
 
                 echo "la taille du fichier est trop grande. Enclenchement procedure archive"
                 # si trop gros => kill du PID => copier fichiers etc => PID=0
@@ -71,7 +62,7 @@ function isLaunched () {
                 date=$(date '+%Y-%m-%d')
 
                 cut -d: -f2,3,4,5 /home/$USER/$Dir/$fileName1.log | sort -n -o /home/$USER/$Dir/$fileName1.log
-                exit 0
+                sleep 2
                 # count numberts of records in logfiles 
                 # save this count in a new file with name numberInLog
                 touch /home/$USER/$Dir/numberInLog.txt
@@ -87,9 +78,24 @@ function isLaunched () {
                 rm /home/$USER/$Dir/*.txt
                 #reinitialize the PID to 0
                 generationPID=0
+                fi
+        else
+                echo "generation is not active"
+                if [[ $generationPID -eq 0 ]]; then
+                ./generation.sh $timer $Dir $fileName1 $fileName2 &
+                generationPID=$!
+
+#regarder si le sfichiers de logs pas trop gros => methode
+                sleep 1    
+                fi    
         fi
+       
+       
+        #test si ca renvoie 1 ou 0 => ensuite l'inclure dans la condition
 
 
+#condition where we verify if logfile's size are greater than the size set in argument $fileSize
+        
 sleep 5
 done
 
