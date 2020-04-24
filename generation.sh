@@ -6,6 +6,20 @@ Dir=$2
 fileName1=$3
 fileName2=$4
 
+function on_hangup () 
+{ 
+    echo 'Hangup (SIGINT) signal received'
+    exit 0
+}  
+
+trap on_hangup SIGINT
+
+while true ; do 
+sleep 1
+    echo "ça fonctionne"
+done 
+ 
+
 echo $UID
 mkdir /home/$USER/$Dir
 #./genTick $timer | ./genSensorData 1> $fileName1.txt 
