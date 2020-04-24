@@ -42,8 +42,22 @@ testSizeError=$(du /home/$USER/$Dir/$fileName2.log | cut -f1);
                 sleep 1        
         fi
 #regarder le code d'erreur du pgrep
+function isLaunched () {
+        
         pgrep generation.sh
         echo $?
+
+}
+ isLaunched 
+
+        if [[ isLaunched -eq 0 ]]; then
+
+                echo "generation is active"
+         
+        else
+                echo "generation is not active"
+        fi        
+       
         #test si ca renvoie 1 ou 0 => ensuite l'inclure dans la condition
 
 
@@ -81,10 +95,10 @@ done
 
 if [ -e /home/$USER/$Dir/ ]; then
 
-        echo "le fichier existe"
+        echo "the file already exists"
 
 
  else
 
-          echo "le fichier n'existe pas garçon!"
+          echo "the file does'nt exists!"
 fi
