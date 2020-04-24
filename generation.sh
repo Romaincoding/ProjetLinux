@@ -14,9 +14,9 @@ mkdir /home/$USER/$Dir
     while IFS= read -r RAW_LINE; do
     echo $RAW_LINE
 
-     result=$(echo $RAW_LINE | cut -d ";" -f1 );
-     filter=$(echo $RAW_LINE | cut -d ";" -f3,4,5,6);
-    if [[ $result == "sensor" ]]; then
+     result=$(echo $RAW_LINE | cut -d "#" -f1 );
+     filter=$(echo $RAW_LINE | cut -d ";" -f1,2,3,5);
+    if [[ $result == "Sensor" ]]; then
         
         
        
